@@ -1,0 +1,1 @@
+tools\jsmin.exe < src\jquery.fluentpaging.js > src\jquery.fluentpaging.min.js

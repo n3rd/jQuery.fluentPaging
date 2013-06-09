@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fluent Paging Demo</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div id="content" class="container"></div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="../src/jquery.fluentpaging.js"></script>
+    <script>
+        $(function () {
+            var paging = $(window).fluentPaging({
+                debug: false,
+                callback: function (page) {
+                    return $.get('nextpage.html?page=' + page, function (html) {
+                        $('#content').append(html);
+                    }).then(function () {
+                        var def = $.Deferred();
+
+                        if (page > 10)
+                            def.reject();
+                        else
+                            def.resolve();
+
+                        return def;
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
