@@ -1,7 +1,7 @@
 Fluent Paging
 ===================
 
-== Usage
+==Usage
 
 ``` js
 $(function () {
@@ -15,7 +15,7 @@ $(function () {
 });
 ````
 
-== License
+==License
 
 Copyright (c) 2013 Boaz den Besten
 
