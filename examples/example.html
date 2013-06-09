@@ -12,7 +12,7 @@
     <script src="../src/jquery.fluentpaging.js"></script>
     <script>
         $(function () {
-            var paging = $(window).fluentPaging({
+            $(window).fluentPaging({
                 debug: false,
                 callback: function (page) {
                     return $.get('nextpage.html?page=' + page, function (html) {
