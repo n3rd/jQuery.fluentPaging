@@ -8,6 +8,8 @@
              *  the first argument is the page to load */
             callback: undefined,
             prefill: true, // if there is no scrollbar yet, load content until there is
+            bottom: 0, // px from bottom to start loading next page
+            loaderSelector: undefined, // jQuery selector, will be shown during the loading of a page
             debug: false // print debug info to the console
         };
 
@@ -22,7 +24,7 @@
                 console.log('contentCheck');
 
             if (!pauzed
-                && $(window).scrollTop() == $(document).height() - $(window).height()) {
+                && $(window).scrollTop() >= $(document).height() - $(window).height() - options.bottom) {
                 doPaging(++currentPage);
             }
         };
@@ -31,17 +33,22 @@
             pauzed = true;
 
             if (options.callback) {
+
+                $(options.loaderSelector).show();
+
                 var result = options.callback(page);
                 result.then(function () {
                     if (options.debug)
                         console.log('page ' + page + ' succeeded');
 
+                    $(options.loaderSelector).hide();
                     pauzed = false;
                     contentCheck();
                 }, function () {
                     if (options.debug)
                         console.log('page ' + page + ' failed');
 
+                    $(options.loaderSelector).hide();
                     stopPaging();
                 });
             }
@@ -55,12 +62,8 @@
         };
 
         var run = function () {
-            $scope.on('scroll.fluentpaging', function () {
-                if (options.debug)
-                    console.log('scroll');
-
-                contentCheck();
-            });
+            $scope.on('scroll.fluentpaging', contentCheck);
+            $(options.loaderSelector).hide();
 
             if (options.prefill) {
                 doPaging(++currentPage);
@@ -74,9 +77,8 @@
 
     $.fn.fluentPaging = function (options) {
         return this.each(function () {
-            return new FluentPaging(this, options).run();
+            new FluentPaging(this, options).run();
         });
-        
     };
 
 })(jQuery);

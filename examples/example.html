@@ -3,8 +3,23 @@
 <head>
     <title>Fluent Paging Demo</title>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style type="text/css">
+        #loader {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            width: 500px;
+            margin-left: -250px;
+        }
+    </style>
 </head>
 <body>
+
+    <div id="loader">
+        <div class="progress progress-striped active">
+            <div class="bar" style="width: 100%;">Loading next page ...</div>
+        </div>
+    </div>
 
     <div id="content" class="container"></div>
 
@@ -13,7 +28,9 @@
     <script>
         $(function () {
             $(window).fluentPaging({
-                debug: false,
+                debug: true,
+                bottom: 100,
+                loaderSelector: '#loader',
                 callback: function (page) {
                     return $.get('nextpage.html?page=' + page, function (html) {
                         $('#content').append(html);
