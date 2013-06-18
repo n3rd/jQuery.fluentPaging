@@ -53,10 +53,10 @@
                 });
             }
         };
-		
-		var loadNextPage = function () {
-			doPaging(++currentPage);
-		};
+
+        var loadNextPage = function () {
+            doPaging(++currentPage);
+        };
 
         var stopPaging = function () {
             $scope.off('scroll.fluentpaging');
@@ -73,45 +73,45 @@
                 loadNextPage();
             }
         };
-		
+
         var pause = function () {
-			paused = true;
-		};
-		
-		var resume = function() {
-			paused = false;
-		};
+            paused = true;
+        };
+
+        var resume = function() {
+            paused = false;
+        };
 
         return {
             run: run,
             loadNextPage: loadNextPage,
             pause: pause,
-			resume: resume,
-			stopPaging: stopPaging
+            resume: resume,
+            stopPaging: stopPaging
         };
     });
 
     $.fn.fluentPaging = function (options) {
-	
-		return this.each(function() {	
-			if(typeof options === 'object') {
-				var instance = new FluentPaging(this, options);
-				instance.run();
-				$.data(this, 'fluentpaging', instance);
-			} else if (typeof options === 'string') {
-				var instance = $.data(this, 'fluentpaging');
-				
-				switch(options) {
-					case 'destroy':
-						$.data(this, 'fluentpaging', null);
-						instance.stopPaging();
-						instance = null;
-						break;
-					default:					
-						instance[options]();
-				}
-			}		
-		});
+
+        return this.each(function() {
+            if(typeof options === 'object') {
+                var instance = new FluentPaging(this, options);
+                instance.run();
+                $.data(this, 'fluentpaging', instance);
+            } else if (typeof options === 'string') {
+                var instance = $.data(this, 'fluentpaging');
+
+                switch(options) {
+                    case 'destroy':
+                        $.data(this, 'fluentpaging', null);
+                        instance.stopPaging();
+                        instance = null;
+                        break;
+                    default:
+                        instance[options]();
+                }
+            }
+        });
     };
 
 })(jQuery);
