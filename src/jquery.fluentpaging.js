@@ -17,20 +17,20 @@
 
         var currentPage = 0;
 
-        var pauzed = false;
+        var paused = false;
 
         var contentCheck = function () {
             if (options.debug)
                 console.log('contentCheck');
 
-            if (!pauzed
+            if (!paused
                 && $(window).scrollTop() >= $(document).height() - $(window).height() - options.bottom) {
                 doPaging(++currentPage);
             }
         };
 
         var doPaging = function (page) {
-            pauzed = true;
+            paused = true;
 
             if (options.callback) {
 
@@ -42,7 +42,7 @@
                         console.log('page ' + page + ' succeeded');
 
                     $(options.loaderSelector).hide();
-                    pauzed = false;
+                    paused = false;
                     contentCheck();
                 }, function () {
                     if (options.debug)
@@ -69,16 +69,44 @@
                 doPaging(++currentPage);
             }
         };
+		
+        var pause = function () {
+			paused = true;
+		};
+		
+		var resume = function() {
+			paused = false;
+		};
 
         return {
-            run: run
+            run: run,
+            pause: pause,
+			resume: resume,
+			stopPaging: stopPaging
         };
     });
 
     $.fn.fluentPaging = function (options) {
-        return this.each(function () {
-            new FluentPaging(this, options).run();
-        });
+	
+		return this.each(function() {	
+			if(typeof options === 'object') {
+				var instance = new FluentPaging(this, options);
+				instance.run();
+				$.data(this, 'fluentpaging', instance);
+			} else if (typeof options === 'string') {
+				var instance = $.data(this, 'fluentpaging');
+				
+				switch(options) {
+					case 'destroy':
+						$.data(this, 'fluentpaging', null);
+						instance.stopPaging();
+						instance = null;
+						break;
+					default:					
+						instance[options]();
+				}
+			}		
+		});
     };
 
 })(jQuery);
