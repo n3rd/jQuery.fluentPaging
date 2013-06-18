@@ -25,7 +25,7 @@
 
             if (!paused
                 && $(window).scrollTop() >= $(document).height() - $(window).height() - options.bottom) {
-                doPaging(++currentPage);
+                loadNextPage();
             }
         };
 
@@ -53,6 +53,10 @@
                 });
             }
         };
+		
+		var loadNextPage = function () {
+			doPaging(++currentPage);
+		};
 
         var stopPaging = function () {
             $scope.off('scroll.fluentpaging');
@@ -66,7 +70,7 @@
             $(options.loaderSelector).hide();
 
             if (options.prefill) {
-                doPaging(++currentPage);
+                loadNextPage();
             }
         };
 		
@@ -80,6 +84,7 @@
 
         return {
             run: run,
+            loadNextPage: loadNextPage,
             pause: pause,
 			resume: resume,
 			stopPaging: stopPaging

@@ -29,6 +29,11 @@ Resume the paging:
 $(window).fluentPaging('resume');
 ```
 
+Manually load the next page:
+```js
+$(window).fluentPaging('loadNextPage');
+```
+
 Stop the paging:
 ```js 
 $(window).fluentPaging('destroy');
