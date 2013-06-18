@@ -5,7 +5,7 @@ Fluent Paging
 
 ###Basic usage
 
-`` js
+``` js
 $(function () {
   $(window).fluentPaging({
     callback: function (page) {
@@ -15,24 +15,24 @@ $(function () {
     }
   });
 });
-``
+```
 
 ###Methods
 
-Pause the paging:
-``js 
+Pause the paging: 
+```js 
 $(window).fluentPaging('pause');
-``
+```
 
 Resume the paging:
-``js 
+```js 
 $(window).fluentPaging('resume');
-``
+```
 
 Stop the paging:
-``js 
+```js 
 $(window).fluentPaging('destroy');
-``
+```
 
 ##License
 
