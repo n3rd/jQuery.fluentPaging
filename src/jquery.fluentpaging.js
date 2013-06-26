@@ -10,6 +10,7 @@
             prefill: true, // if there is no scrollbar yet, load content until there is
             bottom: 0, // px from bottom to start loading next page
             loaderSelector: undefined, // jQuery selector, will be shown during the loading of a page
+            nextPageSelector: undefined, // jQuery selector, loadNextPage will be bound onclick
             debug: false // print debug info to the console
         };
 
@@ -30,6 +31,7 @@
         };
 
         var doPaging = function (page) {
+            var wasPaused = paused;
             paused = true;
 
             if (options.callback) {
@@ -42,11 +44,20 @@
                         console.log('page ' + page + ' succeeded');
 
                     $(options.loaderSelector).hide();
-                    paused = false;
+
+                    if (!wasPaused) {
+                        paused = false;
+                    }
+
                     contentCheck();
                 }, function () {
                     if (options.debug)
                         console.log('page ' + page + ' failed');
+
+                    if (options.nextPageSelector) {
+                        $(options.nextPageSelector)
+                            .hide();
+                    }
 
                     $(options.loaderSelector).hide();
                     stopPaging();
@@ -68,6 +79,11 @@
         var run = function () {
             $scope.on('scroll.fluentpaging', contentCheck);
             $(options.loaderSelector).hide();
+
+            if (options.nextPageSelector) {
+                $(options.nextPageSelector)
+                    .on('click', loadNextPage);
+            }
 
             if (options.prefill) {
                 loadNextPage();
