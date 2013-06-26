@@ -4,9 +4,9 @@
         var $scope = $(scope);
 
         var defaults = {
-            /* callback must return a promise, if the promise fails to resolve paging will be stopped
+            /* loadPageCallback must return a promise, if the promise fails to resolve paging will be stopped
              *  the first argument is the page to load */
-            callback: undefined,
+            loadPageCallback: undefined,
             prefill: true, // if there is no scrollbar yet, load content until there is
             bottom: 0, // px from bottom to start loading next page
             loaderSelector: undefined, // jQuery selector, will be shown during the loading of a page
@@ -34,11 +34,11 @@
             var wasPaused = paused;
             paused = true;
 
-            if (options.callback) {
+            if (options.loadPageCallback) {
 
                 $(options.loaderSelector).show();
 
-                var result = options.callback(page);
+                var result = options.loadPageCallback(page);
                 result.then(function () {
                     if (options.debug)
                         console.log('page ' + page + ' succeeded');

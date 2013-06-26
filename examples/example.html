@@ -59,7 +59,7 @@
                 loaderSelector: '#loader',
                 nextPageSelector: '#next',
                 prefill: true,
-                callback: function (page) {
+                loadPageCallback: function (page) {
                     return $.get('nextpage.html?page=' + page, function (html) {
                         $('#content').append(html);
                     }).then(function () {

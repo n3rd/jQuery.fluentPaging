@@ -8,7 +8,7 @@ Fluent Paging
 ``` js
 $(function () {
   $(window).fluentPaging({
-    callback: function (page) {
+    loadPageCallback: function (page) {
       return $.get('page-' + page + '.html', function (html) {
         $('body').append(html);
       });
