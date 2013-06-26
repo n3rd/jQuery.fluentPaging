@@ -1,4 +1,4 @@
-/*! jQuery.fluentPaging 0.1 | (c) Boaz den Besten | MIT Licence
+/*! jQuery.fluentPaging 0.1.0 | (c) Boaz den Besten | MIT Licence
 */(function ($, undefined) {
 
     var FluentPaging = (function (scope, options) {
