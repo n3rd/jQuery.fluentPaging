@@ -4,6 +4,10 @@
     <title>Fluent Paging Demo</title>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+
         #loader {
             position: fixed;
             bottom: 0;
@@ -11,9 +15,25 @@
             width: 500px;
             margin-left: -250px;
         }
+
+        i[class^="icon-"] + span,
+        i[class*=" icon-"] + span {
+            padding-left: 7px;
+        }
     </style>
 </head>
 <body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">jQuery.fluentPaging</a>
+                <div class="btn-group">
+                    <button id="pause" class="btn"><i class="icon-pause"></i><span>Pause</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="loader">
         <div class="progress progress-striped active">
@@ -25,8 +45,7 @@
 
 
     <div class="container">
-        <a id="next" class="btn btn-large btn-block btn-primary" href="#">
-            More...
+        <a id="next" class="btn btn-large btn-block btn-primary" href="#">More...
         </a>
     </div>
 
@@ -58,6 +77,18 @@
 
             $('#next').on('click', function () {
                 return false;
+            });
+
+            $('#pause').on('click', function () {
+                if ($('#pause').is('.active')) {
+                    jQuery(window).fluentPaging('resume');
+                } else {
+                    jQuery(window).fluentPaging('pause');
+                }
+
+                $('#pause').toggleClass('active');
+                $('#pause i').toggleClass('icon-pause');
+                $('#pause i').toggleClass('icon-play');
             });
         });
     </script>
