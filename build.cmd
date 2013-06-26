@@ -1,1 +1,1 @@
-tools\jsmin.exe < src\jquery.fluentpaging.js > src\jquery.fluentpaging.min.js
+tools\jsmin.exe "jQuery.fluentPaging 0.1 | (c) Boaz den Besten | MIT Licence" < src\jquery.fluentpaging.js > src\jquery.fluentpaging.min.js
